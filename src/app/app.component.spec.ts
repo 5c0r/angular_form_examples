@@ -1,10 +1,14 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { FormExampleComponent } from './form-example/form-example.component';
+import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [FormsModule, ReactiveFormsModule],
       declarations: [
-        AppComponent
+        AppComponent, FormExampleComponent
       ],
     }).compileComponents();
   }));
