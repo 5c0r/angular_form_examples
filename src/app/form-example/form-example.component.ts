@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, AfterViewInit, AfterContentChecked } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-form-example',
   templateUrl: './form-example.component.html',
   styleUrls: ['./form-example.component.css']
 })
-export class FormExampleComponent implements OnInit {
+export class FormExampleComponent implements OnInit, AfterContentChecked {
 
   formInstance: FormGroup;
 
@@ -31,15 +31,34 @@ export class FormExampleComponent implements OnInit {
     });
   }
 
+  ngOnInit() {
+
+    // Assume we get a response from API
+    const newValue = {
+      ...this.formInstance.value,
+      inventors: []
+    }
+
+    // Yes, FormArray will be difficult to tame
+    if (newValue.inventors.length === 0) this.formInstance.setControl('inventors', this._fb.array([]));
+    this.formInstance.setValue(newValue);
+  }
+
+
   public onFormSubmit(): void {
     // TODO: What's the point of form value manipulation here , waste of time ,waste of brain
-    console.log('formInstance', this.formInstance.value);
+    console.log('formInstance.value', this.formInstance.value);
 
     // TODO: Http submit form value plz plz
   }
 
-  ngOnInit() {
+
+  ngAfterContentChecked() {
+
+
+
   }
+
 
 
 

@@ -1,6 +1,7 @@
 <div class="columns">
+  {{ formArrayInstance.controls.length }}
   <div [formGroup]="formArrayInstance.parent">
-    <div [formArrayName]="arrayName">
+    <div [formArrayName]="arrayName" *ngIf="formArrayInstance.length > 0 ; else notYet">
       <div *ngFor="let item of formArrayInstance.controls; let i = index">
         <div [formGroupName]="i" class="field">
           <div class="control">
@@ -13,6 +14,7 @@
         <button type="button" class="button" (click)="onRemove(i)">Remove</button>
       </div>
     </div>
+    <ng-template #notYet>Not yet</ng-template>
   </div>
   <button class="button" type="button" (click)="onAdd()">Add Inventor</button>
 </div>

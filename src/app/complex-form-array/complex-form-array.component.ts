@@ -38,7 +38,7 @@ export class ComplexFormArrayComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    console.log('onInit', this.arrayName, this.controlContainer);
     // TODO: Should have been checked if the container is really a FormGroup
     // TODO: Whether this component should work without formControl/formControlName
     if (this.arrayName && this.controlContainer) {
