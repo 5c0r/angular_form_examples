@@ -24,11 +24,16 @@ export class FormExampleComponent implements OnInit, AfterContentChecked {
         'name': ['', Validators.required],
         'age': [10, Validators.min(10)]
       }),
-      'inventors': this._fb.array([this._fb.group({
-        'name': ['', Validators.required],
-        'age': [12, Validators.min(10)]
-      })], Validators.maxLength(2))
+      'inventors': this.buildInventorFormArray(false)
     });
+  }
+
+  buildInventorFormArray(isEmpty: boolean): FormArray {
+    const inventorsValidation = Validators.maxLength(2);
+    return isEmpty ? this._fb.array([], inventorsValidation) : this._fb.array([this._fb.group({
+      'name': ['', Validators.required],
+      'age': [12, Validators.min(10)]
+    })], inventorsValidation)
   }
 
   ngOnInit() {
@@ -40,7 +45,7 @@ export class FormExampleComponent implements OnInit, AfterContentChecked {
     }
 
     // Yes, FormArray will be difficult to tame
-    if (newValue.inventors.length === 0) this.formInstance.setControl('inventors', this._fb.array([]));
+    if (newValue.inventors.length === 0) this.formInstance.setControl('inventors', this.buildInventorFormArray(true));
     this.formInstance.setValue(newValue);
   }
 
