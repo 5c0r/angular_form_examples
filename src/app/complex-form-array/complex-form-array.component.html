@@ -1,0 +1,18 @@
+<div class="columns">
+  <div [formGroup]="formArrayInstance.parent">
+    <div [formArrayName]="arrayName">
+      <div *ngFor="let item of formArrayInstance.controls; let i = index">
+        <div [formGroupName]="i" class="field">
+          <div class="control">
+            <input class="input" type="text" formControlName="name" />
+          </div>
+          <div class="control">
+            <input class="input" type="number" formControlName="age" />
+          </div>
+        </div>
+        <button type="button" class="button" (click)="onRemove(i)">Remove</button>
+      </div>
+    </div>
+  </div>
+  <button class="button" type="button" (click)="onAdd()">Add Inventor</button>
+</div>
