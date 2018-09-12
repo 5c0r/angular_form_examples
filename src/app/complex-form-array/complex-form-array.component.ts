@@ -42,7 +42,8 @@ export class ComplexFormArrayComponent implements OnInit {
     // TODO: Should have been checked if the container is really a FormGroup
     // TODO: Whether this component should work without formControl/formControlName
     if (this.arrayName && this.controlContainer) {
-      (this.controlContainer.control as FormGroup).setControl(this.arrayName, this.formArrayInstance);
+      // (this.controlContainer.control as FormGroup).setControl(this.arrayName, this.formArrayInstance);
+      this.formArrayInstance = this.controlContainer.control.get(this.arrayName) as FormArray;
     }
   }
 

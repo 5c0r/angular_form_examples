@@ -2,7 +2,7 @@
   <form class="column" [formGroup]="formInstance" (ngSubmit)="onFormSubmit()">
     <div class="field">
       <label for="textInput" class="label"> Simple text input</label>
-      <input class="control" type="text" formControlName="textInput" />
+      <input class="input" type="text" formControlName="textInput" />
       <p class="help is-danger" *ngIf="formInstance.get('textInput').errors?.required">Text Input is required</p>
 
     </div>
@@ -15,7 +15,7 @@
     </div>
     <div class="field">
       <label class="label" for="textControlInput"> Text input as a FormControl</label>
-      <input class="control" type="text" [formControl]="formInstance.get('textControlInput')" />
+      <input class="input" type="text" [formControl]="formInstance.get('textControlInput')" />
       <p class="help is-danger" *ngIf="formInstance.get('textControlInput').errors?.required">Another Text Input is
         required</p>
     </div>

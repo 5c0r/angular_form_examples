@@ -26,8 +26,8 @@ export class FormExampleComponent implements OnInit {
       }),
       'inventors': this._fb.array([this._fb.group({
         'name': ['', Validators.required],
-        'age': [10, Validators.min(10)]
-      })])
+        'age': [12, Validators.min(10)]
+      })], Validators.maxLength(2))
     });
   }
 
