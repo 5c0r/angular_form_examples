@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit, AfterContentChecked } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormCreation } from '../form-creator.service';
 
 @Component({
   selector: 'app-form-example',
@@ -9,8 +10,12 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 export class FormExampleComponent implements OnInit, AfterContentChecked {
 
   formInstance: FormGroup;
+  formCreationUtil: FormCreation;
 
   constructor(private readonly _fb: FormBuilder) {
+
+    this.formCreationUtil = new FormCreation(_fb);
+
     this.formInstance = this._fb.group({
       // Normal input , [ initialValue, ...validators]
       'textInput': ['', Validators.required],
@@ -20,21 +25,12 @@ export class FormExampleComponent implements OnInit, AfterContentChecked {
       // A form control as child component
       'childControl': this._fb.control('Halo', Validators.required),
       // A form group as child component
-      'complexApplicant': this._fb.group({
-        'name': ['', Validators.required],
-        'age': [10, Validators.min(10)]
-      }),
-      'inventors': this.buildInventorFormArray(false)
+      'complexApplicant': this.formCreationUtil.buildApplicantFormGroup(),
+      'inventors': this.formCreationUtil.buildInventorFormArray(false)
     });
   }
 
-  buildInventorFormArray(isEmpty: boolean): FormArray {
-    const inventorsValidation = Validators.maxLength(2);
-    return isEmpty ? this._fb.array([], inventorsValidation) : this._fb.array([this._fb.group({
-      'name': ['', Validators.required],
-      'age': [12, Validators.min(10)]
-    })], inventorsValidation)
-  }
+
 
   ngOnInit() {
 
@@ -45,7 +41,7 @@ export class FormExampleComponent implements OnInit, AfterContentChecked {
     }
 
     // Yes, FormArray will be difficult to tame
-    if (newValue.inventors.length === 0) this.formInstance.setControl('inventors', this.buildInventorFormArray(true));
+    if (newValue.inventors.length === 0) this.formInstance.setControl('inventors', this.formCreationUtil.buildInventorFormArray(true));
     this.formInstance.setValue(newValue);
   }
 

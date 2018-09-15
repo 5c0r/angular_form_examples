@@ -1,44 +1,47 @@
-<div class="columns">
-  <form class="column" [formGroup]="formInstance" (ngSubmit)="onFormSubmit()">
-    <div class="field">
-      <label for="textInput" class="label"> Simple text input</label>
-      <input class="input" type="text" formControlName="textInput" />
-      <p class="help is-danger" *ngIf="formInstance.get('textInput').errors?.required">Text Input is required</p>
+<div class="container">
+  <h4>Regular form example</h4>
+  <div class="columns">
+    <form class="column" [formGroup]="formInstance" (ngSubmit)="onFormSubmit()">
+      <div class="field">
+        <label for="textInput" class="label"> Simple text input</label>
+        <input class="input" type="text" formControlName="textInput" />
+        <p class="help is-danger" *ngIf="formInstance.get('textInput').errors?.required">Text Input is required</p>
 
-    </div>
-    <div class="field">
-      <div class="control">
-        <label class="checkbox" for="boolInput"> Boolean input</label>
-        <input class="checkbox" type="checkbox" formControlName="boolInput" />
       </div>
-      <p class="help is-danger" *ngIf="formInstance.get('boolInput').errors?.required">Checkbox needs to be ticked</p>
-    </div>
-    <div class="field">
-      <label class="label" for="textControlInput"> Text input as a FormControl</label>
-      <input class="input" type="text" [formControl]="formInstance.get('textControlInput')" />
-      <p class="help is-danger" *ngIf="formInstance.get('textControlInput').errors?.required">Another Text Input is
-        required</p>
-    </div>
-    <app-custom-form-control ngDefaultControl [formControl]="formInstance.get('childControl')"></app-custom-form-control>
-    <app-complex-form-control ngDefaultControl [formGroup]="formInstance.get('complexApplicant')"></app-complex-form-control>
-    <app-complex-form-array [arrayName]="'inventors'"></app-complex-form-array>
-    <div *ngIf="formInstance.invalid">
-      <p>Form is invalid, however, Parent formInstance.errors is : </p>
-      <p>{{ formInstance.errors | json }} => Why ? This is by design. FormGroup only shows</p>
-      <p>Validation can be found inside each control instance</p>
-
-    </div>
-    <button class="button" type="submit" [disabled]="formInstance.invalid">Submit</button>
-  </form>
-  <div class="column">
-    <div class="card">
-      <div class="card-header">
-        <div class="card-header-title">
-          The formInstance.value never lie
+      <div class="field">
+        <div class="control">
+          <label class="checkbox" for="boolInput"> Boolean input</label>
+          <input class="checkbox" type="checkbox" formControlName="boolInput" />
         </div>
+        <p class="help is-danger" *ngIf="formInstance.get('boolInput').errors?.required">Checkbox needs to be ticked</p>
       </div>
-      <div class="card-content">
-        {{ formInstance.value | json }}
+      <div class="field">
+        <label class="label" for="textControlInput"> Text input as a FormControl</label>
+        <input class="input" type="text" [formControl]="formInstance.get('textControlInput')" />
+        <p class="help is-danger" *ngIf="formInstance.get('textControlInput').errors?.required">Another Text Input is
+          required</p>
+      </div>
+      <div class="field">
+        <app-custom-form-control ngDefaultControl [formControl]="formInstance.get('childControl')"></app-custom-form-control>
+      </div>
+      <div class="field">
+        <app-complex-form-control ngDefaultControl [formGroup]="formInstance.get('complexApplicant')"></app-complex-form-control>
+      </div>
+      <div class="field">
+        <app-complex-form-array [arrayName]="'inventors'"></app-complex-form-array>
+      </div>
+      <button class="button" type="submit" [disabled]="formInstance.invalid">Submit</button>
+    </form>
+    <div class="column">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-header-title">
+            The formInstance.value never lie
+          </div>
+        </div>
+        <div class="card-content">
+          {{ formInstance.value | json }}
+        </div>
       </div>
     </div>
   </div>

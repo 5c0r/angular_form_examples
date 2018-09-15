@@ -1,9 +1,8 @@
 <div class="columns">
-  {{ formArrayInstance.controls.length }}
   <div [formGroup]="formArrayInstance.parent">
     <div [formArrayName]="arrayName" *ngIf="formArrayInstance.length > 0 ; else notYet">
-      <div *ngFor="let item of formArrayInstance.controls; let i = index">
-        <div [formGroupName]="i" class="field">
+      <div class="columns" *ngFor="let item of formArrayInstance.controls; let i = index">
+        <div [formGroupName]="i" class="column field">
           <div class="control">
             <input class="input" type="text" formControlName="name" />
           </div>
@@ -11,10 +10,18 @@
             <input class="input" type="number" formControlName="age" />
           </div>
         </div>
-        <button type="button" class="button" (click)="onRemove(i)">Remove</button>
+        <div class="column">
+          <button type="button" class="button" (click)="onRemove(i)">Remove</button>
+        </div>
       </div>
     </div>
-    <ng-template #notYet>Not yet</ng-template>
   </div>
+  <ng-template #notYet>
+    <div class="columns">
+      <p class="help is-danger" *ngIf="formArrayInstance?.errors?.required"> Inventors is required </p>
+    </div>
+  </ng-template>
+  <p class="help is-danger" *ngIf="formArrayInstance?.errors?.maxlength?.requiredLength">
+    Too many inventors for an invention. Maximum is {{ formArrayInstance?.errors?.maxlength?.requiredLength }} </p>
   <button class="button" type="button" (click)="onAdd()">Add Inventor</button>
 </div>
