@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, FormGroup, ControlContainer, FormBuilder, Validators } from '@angular/forms';
+import { FormCreation } from '../form-creator.service';
 
 @Component({
   selector: 'app-complex-form-control',
@@ -15,11 +16,9 @@ export class ComplexFormControlComponent implements OnInit {
 
   constructor(private _fb: FormBuilder, private readonly controlContainer: ControlContainer) {
 
+    const formCreation = new FormCreation(this._fb);
     // TODO: This should work as a individual form group , that's why formInstance is also created here
-    this.formInstance = _fb.group({
-      'name': _fb.control('', Validators.required),
-      'age': _fb.control(0, Validators.min(10))
-    });
+    this.formInstance = formCreation.buildApplicantFormGroup();
 
     console.log('CustoMFormControl controlContainer', controlContainer);
   }

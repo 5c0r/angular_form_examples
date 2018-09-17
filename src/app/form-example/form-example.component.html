@@ -6,7 +6,6 @@
         <label for="textInput" class="label"> Simple text input</label>
         <input class="input" type="text" formControlName="textInput" />
         <p class="help is-danger" *ngIf="formInstance.get('textInput').errors?.required">Text Input is required</p>
-
       </div>
       <div class="field">
         <div class="control">
@@ -17,15 +16,17 @@
       </div>
       <div class="field">
         <label class="label" for="textControlInput"> Text input as a FormControl</label>
-        <input class="input" type="text" [formControl]="formInstance.get('textControlInput')" />
+        <input class="input" type="text" formControlName="textControlInput" />
         <p class="help is-danger" *ngIf="formInstance.get('textControlInput').errors?.required">Another Text Input is
           required</p>
       </div>
       <div class="field">
         <app-custom-form-control ngDefaultControl [formControl]="formInstance.get('childControl')"></app-custom-form-control>
+        <p class="help is-danger" *ngIf="formInstance.get('childControl').errors?.required">Child control is required</p>
       </div>
       <div class="field">
-        <app-complex-form-control ngDefaultControl [formGroup]="formInstance.get('complexApplicant')"></app-complex-form-control>
+        <app-complex-form-control [formGroup]="formInstance.get('complexApplicant')"></app-complex-form-control>
+        <p class="help is-danger" *ngIf="formInstance.get('complexApplicant').errors">Complex applicant validation errors</p>
       </div>
       <div class="field">
         <app-complex-form-array [arrayName]="'inventors'"></app-complex-form-array>

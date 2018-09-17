@@ -3,10 +3,12 @@
     <div class="field">
       <label for="name" class="label">Name</label>
       <input type="text" class="input" formControlName="name" />
+      <p class="help is-danger" *ngIf="formInstance.get('name').errors?.required">Name is required</p>
     </div>
     <div class="field">
       <label for="age" class="label">Age</label>
       <input type="number" class="input" formControlName="age" />
+      <p class="help is-danger" *ngIf="formInstance.get('age').errors?.min">Minimum should be ?</p>
     </div>
   </div>
 </div>

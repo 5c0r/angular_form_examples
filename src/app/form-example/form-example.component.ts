@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, AfterContentChecked } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { FormCreation } from '../form-creator.service';
 
 @Component({
@@ -21,15 +21,23 @@ export class FormExampleComponent implements OnInit, AfterContentChecked {
       'textInput': ['', Validators.required],
       'boolInput': [false, Validators.requiredTrue],
       // A form control build by formBuilder
-      'textControlInput': this._fb.control('Test', Validators.required),
+      'textControlInput': this.buildATextControl(),
       // A form control as child component
       'childControl': this._fb.control('Halo', Validators.required),
       // A form group as child component
       'complexApplicant': this.formCreationUtil.buildApplicantFormGroup(),
       'inventors': this.formCreationUtil.buildInventorFormArray(false)
+
+      // TODO: Build a read-only text-control ?
     });
   }
 
+  private buildATextControl() {
+    let textControl = this._fb.control('Hello', Validators.required);
+    // textControl.
+
+    return textControl;
+  }
 
 
   ngOnInit() {
