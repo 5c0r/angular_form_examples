@@ -18,11 +18,13 @@ export class FormCreation {
   }
 
   // Form Array creation is more...complicated I believe
-  buildInventorFormArray(isEmpty: boolean = true): FormArray {
+  buildInventorFormArray(fromValue: any[]): FormArray {
     // Validators.minLength(1) does not really work => Use Validators.required instead
     // Ref : https://github.com/angular/angular/issues/20583
     const inventorsValidation = Validators.compose([Validators.maxLength(2), Validators.required]);
-    return isEmpty ? this._fb.array([], inventorsValidation) : this._fb.array([this.buildInventorFormGroup()], inventorsValidation)
+    const inventorsFormGroup = fromValue.map(x => { const group = this.buildInventorFormGroup(); group.setValue(x); return group });
+
+    return this._fb.array(inventorsFormGroup, inventorsValidation)
   }
 
   public buildApplicantFormGroup(): FormGroup {

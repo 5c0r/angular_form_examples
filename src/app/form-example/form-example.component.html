@@ -28,7 +28,8 @@
         <app-complex-form-control [formGroup]="formInstance.get('complexApplicant')"></app-complex-form-control>
         <p class="help is-danger" *ngIf="formInstance.get('complexApplicant').errors">Complex applicant validation errors</p>
       </div>
-      <div class="field">
+      <hr/>
+      <div class="columns">
         <app-complex-form-array [arrayName]="'inventors'"></app-complex-form-array>
       </div>
       <button class="button" type="submit" [disabled]="formInstance.invalid">Submit</button>

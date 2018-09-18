@@ -26,7 +26,7 @@ export class FormExampleComponent implements OnInit, AfterContentChecked {
       'childControl': this._fb.control('Halo', Validators.required),
       // A form group as child component
       'complexApplicant': this.formCreationUtil.buildApplicantFormGroup(),
-      'inventors': this.formCreationUtil.buildInventorFormArray(false)
+      'inventors': this.formCreationUtil.buildInventorFormArray([])
 
       // TODO: Build a read-only text-control ?
     });
@@ -45,11 +45,14 @@ export class FormExampleComponent implements OnInit, AfterContentChecked {
     // Assume we get a response from API
     const newValue = {
       ...this.formInstance.value,
-      inventors: []
+      inventors: [
+        { name: 'Halo', age: 10 }, { name: 'John', age: 20 }
+      ]
     }
 
     // Yes, FormArray will be difficult to tame
-    if (newValue.inventors.length === 0) this.formInstance.setControl('inventors', this.formCreationUtil.buildInventorFormArray(true));
+    this.formInstance.setControl('inventors', this.formCreationUtil.buildInventorFormArray(newValue.inventors));
+    
     this.formInstance.setValue(newValue);
   }
 

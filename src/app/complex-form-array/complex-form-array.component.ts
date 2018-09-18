@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormArray, FormBuilder, ControlContainer, Validators, FormGroup } from '@angular/forms';
-import { formArrayNameProvider } from '@angular/forms/src/directives/reactive_directives/form_group_name';
+import { FormArray, FormBuilder, ControlContainer } from '@angular/forms';
 import { FormCreation } from '../form-creator.service';
 
 @Component({
@@ -10,25 +9,38 @@ import { FormCreation } from '../form-creator.service';
 })
 export class ComplexFormArrayComponent implements OnInit {
 
+  readonly inventorList: string[] = ['Jane', 'John', 'Joe'];
+  public inventorSelection: any = 'Jane';
+
   // @Input() formArray: FormArray;
   @Input() arrayName: string;
 
   formArrayInstance: FormArray;
   readonly formCreationUtil: FormCreation;
 
+  public addToggle: boolean = false;
+
   constructor(private _fb: FormBuilder, private readonly controlContainer: ControlContainer) {
 
     this.formCreationUtil = new FormCreation(_fb);
     // TODO: This should work as a individual form group , that's why formInstance is also created here
-    this.formArrayInstance = this.formCreationUtil.buildInventorFormArray();
+    this.formArrayInstance = this.formCreationUtil.buildInventorFormArray([]);
   }
 
   public onAdd(): void {
-    this.formArrayInstance.push(this.formCreationUtil.buildInventorFormGroup());
+    const newGroup = this.formCreationUtil.buildInventorFormGroup();
+    newGroup.setValue({ name: this.inventorSelection, age: 0 });
+
+    this.formArrayInstance.push(newGroup);
+    this.addToggle = false;
   }
 
   public onRemove(i: number): void {
     this.formArrayInstance.removeAt(i);
+  }
+
+  public onAddRequest(): void {
+    this.addToggle = true;
   }
 
   ngOnInit() {

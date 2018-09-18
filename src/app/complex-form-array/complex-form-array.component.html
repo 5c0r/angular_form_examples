@@ -23,5 +23,13 @@
   </ng-template>
   <p class="help is-danger" *ngIf="formArrayInstance?.errors?.maxlength?.requiredLength">
     Too many inventors for an invention. Maximum is {{ formArrayInstance?.errors?.maxlength?.requiredLength }} </p>
-  <button class="button" type="button" (click)="onAdd()">Add Inventor</button>
+  <!-- <button class="button" type="button" (click)="onAdd()">Add Inventor</button> -->
+  <button class="button" [disabled]="addToggle === true" type="button" (click)="onAddRequest()">Add Inventor</button>
+  <div [hidden]="addToggle === false">
+    <select [(ngModel)]="inventorSelection">
+      <option *ngFor="let inventor of inventorList" [attr.value]="inventor">{{inventor}}</option>
+    </select>
+    <button class="button" (click)="onAdd()"> Use this inventor</button>
+    <button class="button" (click)="addToggle = false"> Cancel</button>
+  </div>
 </div>
